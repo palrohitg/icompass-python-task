@@ -16,6 +16,10 @@ def index():
 
 @app.route('/users', methods=['GET', 'POST'])
 def list_create_users():
+    """
+        List user endpoints (GET request)
+        Create user endpoints (Post request)
+    """
     if request.method == 'GET':
         users = table.scan()['Items']
         return json_response(users)
@@ -27,6 +31,11 @@ def list_create_users():
 
 @app.route('/users/<id>', methods=['GET', 'PATCH', 'DELETE'])
 def get_patch_delete_users(id):
+    """
+        List user by id (Get request)
+        Update user by id (patch request)
+        Delete user bt id (delete request)
+    """
     key = {'id': id}
     if request.method == 'GET':
         user = table.get_item(Key=key).get('Item')
@@ -47,6 +56,9 @@ def get_patch_delete_users(id):
 
 @app.errorhandler(404)
 def resource_not_found(e):
+    """
+        Page not found 
+    """
     return json_response({"message": "Page, not found"}, 404)
 
 
